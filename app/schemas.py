@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class PostBase(BaseModel):
@@ -20,5 +20,19 @@ class Post(PostBase):
     created_at: datetime
 
     # this is from fastAPI Docs
+    class Config:
+        orm_mode = True
+
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+
+# user response schema
+class UserOut(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
+
     class Config:
         orm_mode = True
