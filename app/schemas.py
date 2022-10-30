@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel, EmailStr
 
 
@@ -15,13 +16,8 @@ class PostCreate(PostBase):
 
 # response schema
 # note this also inherits from postBase class
-class Post(PostBase):
-    id: int
-    created_at: datetime
 
-    # this is from fastAPI Docs
-    class Config:
-        orm_mode = True
+
 
 
 class UserCreate(BaseModel):
@@ -37,7 +33,24 @@ class UserOut(BaseModel):
     class Config:
         orm_mode = True
 
-
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+
+
+class Post(PostBase):
+    id: int
+    created_at: datetime
+    owner_id: int
+    # this returns the user data based on the relationship we have created in the post model
+    owner: UserOut
+
+    # this is from fastAPI Docs
+    class Config:
+        orm_mode = True
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    id: Optional[str] = None
