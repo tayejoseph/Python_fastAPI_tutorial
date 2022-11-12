@@ -1,10 +1,6 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import time
-from . import models, schemas, utils
 from sqlalchemy.ext.declarative import declarative_base
 
 # SQLAlchemy specific code, as with any other app
